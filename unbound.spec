@@ -22,7 +22,7 @@ BuildRequires:	bison
 BuildRequires:	doxygen
 BuildRequires:	flex
 BuildRequires:	libevent-devel
-BuildRequires:	libldns-devel >= 1.3.0
+BuildRequires:	ldns-devel >= 1.3.0
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
