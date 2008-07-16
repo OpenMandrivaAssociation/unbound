@@ -4,8 +4,8 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.0.0
-Release:	%mkrel 0.2
+Version:	1.0.1
+Release:	%mkrel 1
 Group:		System/Servers
 License:	BSD
 URL:		http://www.unbound.net/
@@ -13,7 +13,6 @@ Source0:	http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.init
 Patch0:		unbound-1.0.0_stupid_rpath.patch
 Patch1:		unbound-1.0.0_preserve_cflags.patch
-Patch2:		unbound-1.0.0_buffer_overflow.patch
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Requires(pre): rpm-helper
@@ -51,7 +50,6 @@ A validating, recursive, and caching DNS resolver
 %setup -q
 %patch0
 %patch1
-%patch2
 
 cp %{SOURCE1} unbound.init
 
