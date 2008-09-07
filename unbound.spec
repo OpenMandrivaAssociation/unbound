@@ -4,7 +4,7 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.0.1
+Version:	1.0.2
 Release:	%mkrel 1
 Group:		System/Servers
 License:	BSD
@@ -114,7 +114,7 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %doc LICENSE README
 %defattr(-,root,root,-)
-%{_libdir}/lib*so.*
+%{_libdir}/lib*so.%{major}*
 
 %files -n %{develname}
 %defattr(-,root,root,-)
@@ -123,4 +123,3 @@ rm -rf %{buildroot}
 %{_libdir}/lib*.so
 %{_libdir}/lib*.*a
 %{_mandir}/man3/*
-
