@@ -5,12 +5,13 @@
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
 Version:	1.0.2
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		System/Servers
 License:	BSD
 URL:		http://www.unbound.net/
 Source0:	http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.init
+Source2:    unbound.mandriva.conf
 Patch0:		unbound-1.0.0_stupid_rpath.patch
 Patch1:		unbound-1.0.0_preserve_cflags.patch
 Requires(post): rpm-helper
@@ -72,10 +73,18 @@ rm -rf %{buildroot}
 
 install -d %{buildroot}%{_initrddir}
 install -d %{buildroot}%{_localstatedir}/unbound
+install -d %{buildroot}/var/run//unbound
 
 %makeinstall_std
 
 install -m0755 unbound.init %{buildroot}%{_initrddir}/unbound
+
+install -m0644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/%name/
+
+echo "# place here local modification of the configuration" > %{buildroot}/%{_sysconfdir}/%name/unbound.local.conf
+
+perl -pi -e '$. eq 1 && print "include: /etc/unbound/unbound.mandriva.conf\n"' %{buildroot}/%{_sysconfdir}/%name/%name.conf
+perl -pi -e '$. eq 1 && print "include: /etc/unbound/unbound.local.conf\n"' %{buildroot}/%{_sysconfdir}/%name/%name.conf
 
 %pre
 %_pre_useradd unbound %{_localstatedir}/unbound /bin/false
@@ -110,6 +119,7 @@ rm -rf %{buildroot}
 %{_mandir}/man5/*
 %{_mandir}/man8/*
 %attr(0750,unbound,unbound) %dir %{_localstatedir}/unbound
+%attr(0750,unbound,unbound) %dir /var/run/unbound
 
 %files -n %{libname}
 %doc LICENSE README
