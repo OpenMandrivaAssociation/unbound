@@ -4,16 +4,15 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.0.2
-Release:	%mkrel 3
+Version:	1.1.1
+Release:	%mkrel 1
 Group:		System/Servers
 License:	BSD
 URL:		http://www.unbound.net/
 Source0:	http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.init
-Source2:    unbound.mandriva.conf
+Source2:	unbound.mandriva.conf
 Patch0:		unbound-1.0.0_stupid_rpath.patch
-Patch1:		unbound-1.0.0_preserve_cflags.patch
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Requires(pre): rpm-helper
@@ -22,7 +21,7 @@ BuildRequires:	bison
 BuildRequires:	doxygen
 BuildRequires:	flex
 BuildRequires:	libevent-devel
-BuildRequires:	ldns-devel >= 1.3.0
+BuildRequires:	ldns-devel >= 1.4.0
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -50,7 +49,6 @@ A validating, recursive, and caching DNS resolver
 
 %setup -q
 %patch0
-%patch1
 
 cp %{SOURCE1} unbound.init
 
@@ -59,6 +57,7 @@ rm -f ldns-src.tar.gz
 %build
 
 %configure2_5x \
+    --localstatedir=/var/lib \
     --disable-rpath \
     --with-ssl=%{_prefix} \
     --with-pthreads \
@@ -72,7 +71,7 @@ make doc
 rm -rf %{buildroot}
 
 install -d %{buildroot}%{_initrddir}
-install -d %{buildroot}%{_localstatedir}/unbound
+install -d %{buildroot}/var/lib/unbound
 install -d %{buildroot}/var/run//unbound
 
 %makeinstall_std
@@ -87,7 +86,7 @@ perl -pi -e '$. eq 1 && print "include: /etc/unbound/unbound.mandriva.conf\n"' %
 perl -pi -e '$. eq 1 && print "include: /etc/unbound/unbound.local.conf\n"' %{buildroot}/%{_sysconfdir}/%name/%name.conf
 
 %pre
-%_pre_useradd unbound %{_localstatedir}/unbound /bin/false
+%_pre_useradd unbound /var/lib/unbound /bin/false
 
 %postun
 %_postun_userdel unbound
@@ -98,9 +97,13 @@ perl -pi -e '$. eq 1 && print "include: /etc/unbound/unbound.local.conf\n"' %{bu
 %preun
 %_preun_service unbound
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %clean
 rm -rf %{buildroot}
@@ -108,17 +111,19 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc doc/CREDITS doc/Changelog doc/FEATURES doc/LICENSE doc/README doc/README.tests
-%doc doc/example.conf doc/plan doc/requirements.txt
+%doc doc/example.conf doc/requirements.txt
 %{_initrddir}/unbound
 %attr(-,root,unbound) %dir %{_sysconfdir}/unbound
 %attr(-,root,unbound) %config(noreplace) %{_sysconfdir}/unbound/*
 %{_sbindir}/unbound
 %{_sbindir}/unbound-checkconf
+%{_sbindir}/unbound-control
+%{_sbindir}/unbound-control-setup
 %{_sbindir}/unbound-host
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 %{_mandir}/man8/*
-%attr(0750,unbound,unbound) %dir %{_localstatedir}/unbound
+%attr(0750,unbound,unbound) %dir /var/lib/unbound
 %attr(0750,unbound,unbound) %dir /var/run/unbound
 
 %files -n %{libname}
