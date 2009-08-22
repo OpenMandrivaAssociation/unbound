@@ -4,7 +4,7 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.3.2
+Version:	1.3.3
 Release:	%mkrel 1
 Group:		System/Servers
 License:	BSD
