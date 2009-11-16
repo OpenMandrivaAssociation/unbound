@@ -5,7 +5,7 @@
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
 Version:	1.3.4
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		System/Servers
 License:	BSD
 URL:		http://www.unbound.net/
@@ -39,7 +39,7 @@ A validating, recursive, and caching DNS resolver
 Summary:	Development files for libunbound
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
-Provides:	%{name} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n	%{develname}
 A validating, recursive, and caching DNS resolver
