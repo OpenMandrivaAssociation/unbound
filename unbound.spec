@@ -1,17 +1,18 @@
-%define major 1
+%define major 2
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.3.4
-Release:	%mkrel 2
+Version:	1.4.1
+Release:	%mkrel 1
 Group:		System/Servers
 License:	BSD
 URL:		http://www.unbound.net/
 Source0:	http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.init
 Source2:	unbound.mandriva.conf
+Patch0:     unbound-1.4.1-fix_format_string.diff
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Requires(pre): rpm-helper
@@ -47,6 +48,7 @@ A validating, recursive, and caching DNS resolver
 %prep
 
 %setup -q
+%patch0 -p0
 
 cp %{SOURCE1} unbound.init
 
