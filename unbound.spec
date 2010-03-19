@@ -4,7 +4,7 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.4.1
+Version:	1.4.3
 Release:	%mkrel 1
 Group:		System/Servers
 License:	BSD
@@ -12,7 +12,6 @@ URL:		http://www.unbound.net/
 Source0:	http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.init
 Source2:	unbound.mandriva.conf
-Patch0:     unbound-1.4.1-fix_format_string.diff
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Requires(pre): rpm-helper
@@ -48,7 +47,6 @@ A validating, recursive, and caching DNS resolver
 %prep
 
 %setup -q
-%patch0 -p0
 
 cp %{SOURCE1} unbound.init
 
