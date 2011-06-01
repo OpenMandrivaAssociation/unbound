@@ -4,8 +4,8 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.4.3
-Release:	%mkrel 5
+Version:	1.4.10
+Release:	%mkrel 1
 Group:		System/Servers
 License:	BSD
 URL:		http://www.unbound.net/
@@ -20,7 +20,7 @@ BuildRequires:	bison
 BuildRequires:	doxygen
 BuildRequires:	flex
 BuildRequires:	libevent-devel
-BuildRequires:	ldns-devel >= 1.4.0
+BuildRequires:	ldns-devel >= 1.6.9
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -114,6 +114,7 @@ rm -rf %{buildroot}
 %attr(-,root,unbound) %dir %{_sysconfdir}/unbound
 %attr(-,root,unbound) %config(noreplace) %{_sysconfdir}/unbound/*
 %{_sbindir}/unbound
+%{_sbindir}/unbound-anchor
 %{_sbindir}/unbound-checkconf
 %{_sbindir}/unbound-control
 %{_sbindir}/unbound-control-setup
