@@ -18,9 +18,10 @@ Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 BuildRequires:	bison
 BuildRequires:	doxygen
+BuildRequires:	expat-devel
 BuildRequires:	flex
-BuildRequires:	libevent-devel
 BuildRequires:	ldns-devel >= 1.6.9
+BuildRequires:	libevent-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
