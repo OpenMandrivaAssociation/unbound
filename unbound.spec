@@ -4,8 +4,8 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.4.10
-Release:	%mkrel 1
+Version:	1.4.14
+Release:	1
 Group:		System/Servers
 License:	BSD
 URL:		http://www.unbound.net/
@@ -24,7 +24,6 @@ BuildRequires:	ldns-devel >= 1.6.9
 BuildRequires:	libevent-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Unbound is a validating, recursive, and caching DNS resolver.
@@ -67,7 +66,6 @@ rm -f ldns-src.tar.gz
 make doc
 
 %install
-rm -rf %{buildroot}
 
 install -d %{buildroot}%{_initrddir}
 install -d %{buildroot}/var/lib/unbound
@@ -95,17 +93,6 @@ perl -pi -e '$. eq 1 && print "include: /etc/unbound/unbound.local.conf\n"' %{bu
 
 %preun
 %_preun_service unbound
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
