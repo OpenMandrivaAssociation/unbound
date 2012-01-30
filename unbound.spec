@@ -1,4 +1,4 @@
-%define major 2
+%define major 3
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
 
@@ -73,6 +73,8 @@ install -d %{buildroot}/var/run//unbound
 
 %makeinstall_std
 
+find %{buildroot} -name "*.la" -delete
+
 install -m0755 unbound.init %{buildroot}%{_initrddir}/unbound
 
 install -m0644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/%name/
@@ -95,7 +97,6 @@ perl -pi -e '$. eq 1 && print "include: /etc/unbound/unbound.local.conf\n"' %{bu
 %_preun_service unbound
 
 %files
-%defattr(-,root,root,-)
 %doc doc/CREDITS doc/Changelog doc/FEATURES doc/LICENSE doc/README doc/README.tests
 %doc doc/example.conf doc/requirements.txt
 %{_initrddir}/unbound
@@ -115,11 +116,9 @@ perl -pi -e '$. eq 1 && print "include: /etc/unbound/unbound.local.conf\n"' %{bu
 
 %files -n %{libname}
 %doc LICENSE README
-%defattr(-,root,root,-)
 %{_libdir}/lib*so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root,-)
 %doc doc/html/* doc/README.svn doc/TODO
 %{_includedir}/*.h
 %{_libdir}/lib*.so
