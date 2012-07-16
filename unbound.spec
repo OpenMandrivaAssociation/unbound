@@ -1,10 +1,10 @@
-%define major 3
+%define major 2
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname -d %{name}
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.4.15
+Version:	1.4.17
 Release:	1
 Group:		System/Servers
 License:	BSD
@@ -20,7 +20,7 @@ BuildRequires:	bison
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	flex
-BuildRequires:	ldns-devel >= 1.6.9
+BuildRequires:	ldns-devel >= 1.6.13
 BuildRequires:	libevent-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
