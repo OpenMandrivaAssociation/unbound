@@ -1,4 +1,2 @@
 sources:
-  "unbound-1.4.17.tar.gz:"	fea4d812c03af4737ef671ac30b7b7400d346516
-  "unbound.init:"	12362325ae73bab87c7fbaacdeb544ebaca52693
-  "unbound.mandriva.conf:"	b26b757ee8e4d4fa6ecf30825ce4f438ac475dfc
+  "unbound-1.4.17.tar.gz": fea4d812c03af4737ef671ac30b7b7400d346516

@@ -1,0 +1,88 @@
+#!/bin/sh
+#
+# unbound	This shell script takes care of starting and stopping
+#		unbound (DNS server).
+#
+# chkconfig: 345 55 45
+# description: unbound is a Domain Name Server (DNS) \
+#		that is used to resolve host names to IP addresses.
+### BEGIN INIT INFO
+# Provides: $named unbound
+# Required-Start: $network
+# Required-Stop: $network
+# Should-Start: $syslog
+# Should-Stop: $syslog
+# Default-Start:  3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: unbound recursive Domain Name Server.
+# Description:  unbound is a Domain Name Server (DNS)
+#		that is used to resolve host names to IP addresses.
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+[ -r /etc/sysconfig/network ] && . /etc/sysconfig/network
+
+RETVAL=0
+prog="unbound"
+
+# Check that networking is up.
+[ "${NETWORKING}" = "no" ] && exit 0
+
+[ -f /etc/sysconfig/unbound ] && . /etc/sysconfig/unbound
+
+[ -f /usr/sbin/unbound ] || exit 0
+
+[ -f /etc/unbound/unbound.conf ] || exit 0
+
+start() {
+        # Start daemons.
+	if [ -n "`/sbin/pidof unbound`" ]; then
+            gprintf "$prog: already running"
+	    echo
+            return 1
+        fi
+        gprintf "Starting %s: " $prog
+	daemon unbound ${OPTIONS}
+	RETVAL=$?
+ 	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/unbound
+	echo
+	return $RETVAL
+}
+stop() {
+	# Stop daemons.
+        gprintf "Stopping %s: " $prog
+        killproc -p /var/run/unbound/unbound.pid unbound
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/unbound
+        echo
+        return $RETVAL
+}
+restart() {
+	stop
+	start
+}
+
+# See how we were called.
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	status)
+		status unbound
+		;;
+	restart|reload)
+		restart
+		;;
+	condrestart)
+		[ -f /var/lock/subsys/unbound ] && restart
+		;;
+	*)
+        	gprintf "Usage: %s {start|stop|status|restart|condrestart|reload}\n" $0
+		exit 1
+esac
