@@ -4,7 +4,7 @@
 
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
-Version:	1.4.17
+Version:	1.4.19
 Release:	1
 Group:		System/Servers
 License:	BSD
@@ -12,10 +12,10 @@ URL:		http://www.unbound.net/
 Source0:	http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.init
 Source2:	unbound.mandriva.conf
-Requires(post): rpm-helper
-Requires(preun): rpm-helper
-Requires(pre): rpm-helper
-Requires(postun): rpm-helper
+Requires(post):	rpm-helper
+Requires(preun):	rpm-helper
+Requires(pre):	rpm-helper
+Requires(postun):	rpm-helper
 BuildRequires:	bison
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
@@ -33,7 +33,7 @@ Summary:	Shared library from unbound
 Group:		System/Libraries
 
 %description -n	%{libname}
-A validating, recursive, and caching DNS resolver
+A validating, recursive, and caching DNS resolver.
 
 %package -n	%{develname}
 Summary:	Development files for libunbound
@@ -42,7 +42,7 @@ Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n	%{develname}
-A validating, recursive, and caching DNS resolver
+A validating, recursive, and caching DNS resolver.
 
 %prep
 
@@ -53,7 +53,6 @@ cp %{SOURCE1} unbound.init
 rm -f ldns-src.tar.gz
 
 %build
-
 %configure2_5x \
     --localstatedir=/var/lib \
     --disable-rpath \
