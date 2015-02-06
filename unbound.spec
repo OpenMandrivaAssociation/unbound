@@ -5,7 +5,7 @@
 Summary:	Validating, recursive, and caching DNS resolver
 Name:		unbound
 Version:	1.4.19
-Release:	2
+Release:	3
 Group:		System/Servers
 License:	BSD
 Url:		http://www.unbound.net/
