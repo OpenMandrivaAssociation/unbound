@@ -8,7 +8,7 @@ Version:	1.4.19
 Release:	3
 Group:		System/Servers
 License:	BSD
-Url:		http://www.unbound.net/
+Url:		https://www.unbound.net/
 Source0:	http://www.unbound.net/downloads/unbound-%{version}.tar.gz
 Source1:	unbound.init
 Source2:	unbound.mandriva.conf
