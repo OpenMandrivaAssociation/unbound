@@ -13,6 +13,7 @@ Group:		System/Libraries
 BuildRequires:	autoconf automake slibtool
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(expat)
+BuildRequires:	flex bison
 BuildSystem:	autotools
 
 %description
