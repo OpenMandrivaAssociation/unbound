@@ -3,7 +3,7 @@
 %define devname %mklibname unbound -d
 
 Name:		unbound
-Version:	1.23.1
+Version:	1.24.2
 Release:	1
 Source0:	https://github.com/NLnetLabs/unbound/archive/refs/tags/release-%{version}.tar.gz
 Summary:	DNS Resolver
