@@ -3,7 +3,7 @@
 %define devname %mklibname unbound -d
 
 Name:		unbound
-Version:	1.24.2
+Version:	1.25.1
 Release:	1
 Source0:	https://github.com/NLnetLabs/unbound/archive/refs/tags/release-%{version}.tar.gz
 Summary:	DNS Resolver
@@ -15,6 +15,8 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	flex bison
 BuildSystem:	autotools
+# FIXME re-enable gost when it is ported to OpenSSL 4.x
+BuildOption:	--disable-gost
 
 %description
 Unbound is a validating, recursive, caching DNS resolver. It is designed to be
