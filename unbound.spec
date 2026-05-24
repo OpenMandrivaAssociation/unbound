@@ -18,6 +18,9 @@ BuildSystem:	autotools
 # FIXME re-enable gost when it is ported to OpenSSL 4.x
 BuildOption:	--disable-gost
 
+%patchlist
+unbound-openssl4.patch
+
 %description
 Unbound is a validating, recursive, caching DNS resolver. It is designed to be
 fast and lean and incorporates modern features based on open standards.

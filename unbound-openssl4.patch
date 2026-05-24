@@ -1,0 +1,21 @@
+diff -up unbound-1.25.1/smallapp/unbound-anchor.c.1~ unbound-1.25.1/smallapp/unbound-anchor.c
+--- unbound-1.25.1/smallapp/unbound-anchor.c.1~	2026-05-20 10:22:52.000000000 +0200
++++ unbound-1.25.1/smallapp/unbound-anchor.c	2026-05-24 20:13:58.517996328 +0200
+@@ -1676,12 +1676,12 @@ get_usage_of_ex(X509* cert)
+ 	unsigned long val = 0;
+ 	ASN1_BIT_STRING* s;
+ 	if((s=X509_get_ext_d2i(cert, NID_key_usage, NULL, NULL))) {
+-		if(s->length > 0) {
+-			val = s->data[0];
+-			if(s->length > 1)
+-				val |= s->data[1] << 8;
++		if(ASN1_STRING_length(s) > 0) {
++			val = ASN1_STRING_get0_data(s)[0];
++			if(ASN1_STRING_length(s) > 1)
++				val |= ASN1_STRING_get0_data(s)[1] << 8;
+ 		}
+-		ASN1_BIT_STRING_free(s);
++		ASN1_STRING_free(s);
+ 	}
+ 	return val;
+ }
