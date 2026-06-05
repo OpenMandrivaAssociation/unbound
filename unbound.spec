@@ -4,7 +4,7 @@
 
 Name:		unbound
 Version:	1.25.1
-Release:	1
+Release:	2
 Source0:	https://github.com/NLnetLabs/unbound/archive/refs/tags/release-%{version}.tar.gz
 Summary:	DNS Resolver
 URL:		https://github.com/NLnetLabs/unbound
