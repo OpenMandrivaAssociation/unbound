@@ -51,6 +51,7 @@ server:
 	do-daemonize: no
 	username: ""
 	directory: ""
+	chroot: ""
 	pidfile: ""
 	auto-trust-anchor-file: ""
 	use-syslog: no
